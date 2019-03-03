@@ -56,4 +56,28 @@
     <style name="network_err_txt">
         <item name="android:textSize">25sp</item>
     </style>
+
+    <style name="splash_screen1_text">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="splash_screen2_text">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="splash_next_btn">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:textSize">30sp</item>
+    </style>
 </resources>

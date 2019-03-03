@@ -1,11 +1,13 @@
 package com.example.amebo
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.BaseColumns
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.amebo.Adapters.PostAdapter
@@ -19,6 +21,10 @@ class PostActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    final val SHARED_PREF_NAME = "MyPrefFile"
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
@@ -28,11 +34,22 @@ class PostActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        checkLogin()
+        var settings: SharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
+        if (settings.getBoolean("MyFirstTime", true)) {
+            openSplash1()
+            Log.d("isFirstTime", "Yes")
+        }
+//        checkLogin()
 //        displayPosts()
     }
 
+    //This function helps open a splash screen if its the users first time of using the app
+    fun openSplash1() {
+        val intent: Intent = Intent(this, SplashScreens::class.java)
+        startActivity(intent)
+    }
 
+    //This function displays the posts with a recycler view
     fun displayPosts(){
         val post = Post()
         val posts = ArrayList<Post>()
