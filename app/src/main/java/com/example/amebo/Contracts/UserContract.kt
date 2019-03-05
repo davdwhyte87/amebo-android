@@ -9,13 +9,13 @@ class UserContract {
     object UserEntry : BaseColumns {
         const val TABLE_NAME = "users"
         const val COLUMN_NAME_NAME = "name"
-        const val COLUMN_NAME_UID = "uid"
+        const val COLUMN_NAME_ID = "id"
         const val COLUMN_NAME_TOKEN="token"
         private const val SQL_CREATE_ENTRIES =
             "CREATE TABLE ${UserContract.UserEntry.TABLE_NAME} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                     "${UserContract.UserEntry.COLUMN_NAME_NAME} TEXT," +
-                    "${UserContract.UserEntry.COLUMN_NAME_UID} TEXT," +
+                    "${UserContract.UserEntry.COLUMN_NAME_ID} TEXT," +
                     "${UserContract.UserEntry.COLUMN_NAME_TOKEN} TEXT)"
 
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS ${UserContract.UserEntry.TABLE_NAME}"

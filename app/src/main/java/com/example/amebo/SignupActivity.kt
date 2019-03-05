@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.app.Fragment
+import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import android.view.MotionEvent
@@ -17,8 +18,10 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 import com.android.volley.toolbox.Volley
+import com.example.amebo.Contracts.UserContract
 import com.example.amebo.Models.AppData
 import org.json.JSONArray
+import org.json.JSONException
 
 class SignupActivity : AppCompatActivity() {
     // global variables sortof
@@ -161,12 +164,19 @@ class SignupActivity : AppCompatActivity() {
                     var count=responseObject.length()
                     var message = ""
                     while (count>0){
-                        val dataObject:JSONObject= responseObject.getJSONObject(count-1)
-                        userId = dataObject.getString("id")
-                        userToken = dataObject.getString("token")
-                        message = dataObject.getString("message")
-                        count--
+                        try {
+                            val dataObject:JSONObject= responseObject.getJSONObject(count-1)
+                            userId = dataObject.getString("id")
+                            userToken = dataObject.getString("token")
+                            message = dataObject.getString("message")
+                            count--
+                        } catch (e:JSONException) {
+                            e.printStackTrace()
+                        }
                     }
+
+                    // save users data in the database
+                    saveUserData()
 
                     // send user api message with toast
                     Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
@@ -215,6 +225,20 @@ class SignupActivity : AppCompatActivity() {
      */
     fun stopLoading() {
         signupButton.text = oldtext
+    }
+
+    /**
+     * This function saves a users data in database
+     */
+    fun saveUserData() {
+        val dbhelper= UserContract.UserEntry.DbHelper(this)
+        val db=dbhelper.writableDatabase
+        val data= ContentValues().apply {
+            put(UserContract.UserEntry.COLUMN_NAME_ID,userId)
+            put(UserContract.UserEntry.COLUMN_NAME_TOKEN,userToken)
+            put(UserContract.UserEntry.COLUMN_NAME_NAME,name)
+        }
+        db.insert(UserContract.UserEntry.TABLE_NAME,null,data)
     }
 
 }
