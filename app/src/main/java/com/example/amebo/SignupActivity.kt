@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.AuthFailureError
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -22,6 +23,7 @@ import com.example.amebo.Contracts.UserContract
 import com.example.amebo.Models.AppData
 import org.json.JSONArray
 import org.json.JSONException
+import java.lang.Exception
 
 class SignupActivity : AppCompatActivity() {
     // global variables sortof
@@ -207,6 +209,12 @@ class SignupActivity : AppCompatActivity() {
             }
         }
 
+        //configure request
+        jsonObjectRequest.setRetryPolicy(
+            DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        )
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest)
     }
@@ -238,7 +246,12 @@ class SignupActivity : AppCompatActivity() {
             put(UserContract.UserEntry.COLUMN_NAME_TOKEN,userToken)
             put(UserContract.UserEntry.COLUMN_NAME_NAME,name)
         }
-        db.insert(UserContract.UserEntry.TABLE_NAME,null,data)
+        try {
+            db.insert(UserContract.UserEntry.TABLE_NAME,null,data)
+        } catch (e:Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 }

@@ -76,7 +76,7 @@ class PostActivity : AppCompatActivity() {
         val selectionArgs= arrayOf(1)
         val projections= arrayOf(
             BaseColumns._ID,
-            UserContract.UserEntry.COLUMN_NAME_UID,
+            UserContract.UserEntry.COLUMN_NAME_ID,
             UserContract.UserEntry.COLUMN_NAME_NAME,
             UserContract.UserEntry.COLUMN_NAME_TOKEN)
         val cursor=db.query(UserContract.UserEntry.TABLE_NAME,projections,null,null,null,null,null)
@@ -84,7 +84,7 @@ class PostActivity : AppCompatActivity() {
 
         with(cursor) {
             while (moveToNext()) {
-                uid = getString(getColumnIndex(UserContract.UserEntry.COLUMN_NAME_UID))
+                uid = getString(getColumnIndex(UserContract.UserEntry.COLUMN_NAME_ID))
                 token=getString(getColumnIndex(UserContract.UserEntry.COLUMN_NAME_TOKEN))
             }
         }
