@@ -15,7 +15,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="splash_screen1_text">See something?
-        Then say something</string>
+        Then say something
+    </string>
 
     <string name="splash_screen_two_text">
         Don’t be silenced by the government.
